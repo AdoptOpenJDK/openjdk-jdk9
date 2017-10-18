@@ -67475,10 +67475,18 @@ $as_echo_n "checking if build directory is on local disk... " >&6; }
       OUTPUT_DIR_IS_LOCAL="yes"
     fi
   else
-    if $DF -l $OUTPUT_ROOT > /dev/null 2>&1; then
-      OUTPUT_DIR_IS_LOCAL="yes"
+    if [ $OPENJDK_BUILD_OS_ENV = aix ]; then
+      if $DF -T local $OUTPUT_ROOT > /dev/null 2>&1; then
+        OUTPUT_DIR_IS_LOCAL="yes"
+      else
+        OUTPUT_DIR_IS_LOCAL="no"
+      fi
     else
-      OUTPUT_DIR_IS_LOCAL="no"
+      if $DF -l $OUTPUT_ROOT > /dev/null 2>&1; then
+        OUTPUT_DIR_IS_LOCAL="yes"
+      else
+        OUTPUT_DIR_IS_LOCAL="no"
+      fi
     fi
   fi
 
