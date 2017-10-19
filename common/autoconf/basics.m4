@@ -1156,10 +1156,18 @@ AC_DEFUN([BASIC_CHECK_DIR_ON_LOCAL_DISK],
       $2
     fi
   else
-    if $DF -l $1 > /dev/null 2>&1; then
-      $2
+    if test "x$OPENJDK_BUILD_OS_ENV" = "xaix"; then
+      if $DF -T local $1 > /dev/null 2>&1; then
+        $2
+      else
+        $3
+      fi
     else
-      $3
+      if $DF -l $1 > /dev/null 2>&1; then
+        $2
+      else
+        $3
+      fi
     fi
   fi
 ])

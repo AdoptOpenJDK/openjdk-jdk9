@@ -5186,7 +5186,7 @@ VS_SDK_PLATFORM_NAME_2013=
 #CUSTOM_AUTOCONF_INCLUDE
 
 # Do not change or remove the following line, it is needed for consistency checks:
-DATE_WHEN_GENERATED=1496926402
+DATE_WHEN_GENERATED=1508410971
 
 ###############################################################################
 #
@@ -67475,10 +67475,18 @@ $as_echo_n "checking if build directory is on local disk... " >&6; }
       OUTPUT_DIR_IS_LOCAL="yes"
     fi
   else
-    if $DF -l $OUTPUT_ROOT > /dev/null 2>&1; then
-      OUTPUT_DIR_IS_LOCAL="yes"
+    if test "x$OPENJDK_BUILD_OS_ENV" = "xaix"; then
+      if $DF -T local $OUTPUT_ROOT > /dev/null 2>&1; then
+        OUTPUT_DIR_IS_LOCAL="yes"
+      else
+        OUTPUT_DIR_IS_LOCAL="no"
+      fi
     else
-      OUTPUT_DIR_IS_LOCAL="no"
+      if $DF -l $OUTPUT_ROOT > /dev/null 2>&1; then
+        OUTPUT_DIR_IS_LOCAL="yes"
+      else
+        OUTPUT_DIR_IS_LOCAL="no"
+      fi
     fi
   fi
 
